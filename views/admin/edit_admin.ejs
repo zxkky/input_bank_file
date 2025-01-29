@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head') %>
+    <title>Dashboard - Bank File Management</title>
+</head>
+<body class="bg-gray-100">
+    <div class="flex justify-center items-center min-h-screen">
+        <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-semibold">Edit User</h2>
+                <a href="/admin_manage" class="text-blue-500 hover:text-blue-700 font-medium">← Back</a>
+            </div>
+            <!-- Form edit user -->
+            <form action="/admin/edit-admin/<%= user.id %>" method="POST" enctype="multipart/form-data" class="space-y-6">
+                <div>
+                    <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                    <input type="text" name="username" id="username" value="<%= user.username %>" required class="block w-full px-4 py-2 border rounded-md">
+                </div>
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <input type="password" name="password" id="password" class="block w-full px-4 py-2 border rounded-md">
+                </div>
+                <div>
+                    <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
+                    <select name="role" id="role" required class="block w-full px-4 py-2 border rounded-md">
+                        <option value="Super Admin" <%= user.roles === 'Super Admin' ? 'selected' : '' %>>Super Admin</option>
+                        <option value="Admin" <%= user.roles === 'Admin' ? 'selected' : '' %>>Admin</option>
+                        <option value="User" <%= user.roles === 'User' ? 'selected' : '' %>>User</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="photo" class="block text-sm font-medium text-gray-700">Profile Photo</label>
+                    <input type="file" name="photo" id="photo" accept="image/*" class="block w-full px-4 py-2 border rounded-md">
+                </div>
+                <div>
+                    <label for="upload_by" class="block text-sm font-medium text-gray-700">Upload By</label>
+                    <input type="text" name="upload_by" id="upload_by" value="<%= user.upload_by %>" required class="block w-full px-4 py-2 border rounded-md">
+                </div>
+                <button type="submit" class="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Update User</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

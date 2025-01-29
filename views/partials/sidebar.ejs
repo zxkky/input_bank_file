@@ -1,0 +1,16 @@
+<aside class="w-64 bg-blue-600 text-white flex flex-col">
+    <div class="p-6">
+        <a href="/admin" class="text-2xl font-semibold">Bank File Management</a>
+    </div>
+    <nav class="flex-1 px-6 space-y-4">
+        <a href="/admin" class="block py-2 hover:bg-blue-700 rounded">Dashboard</a>
+        <a href="/admin_manage" class="block py-2 hover:bg-blue-700 rounded">Manage Users</a>
+        <a href="/admin_file" class="block py-2 hover:bg-blue-700 rounded">Manage Files</a>
+        <a href="/borrow" class="block py-2 hover:bg-blue-700 rounded">Manage borrow</a>
+        <a href="/home" class="block py-2 hover:bg-blue-700 rounded">Back To User</a>
+        <!-- <a href="/admin/settings" class="block py-2 hover:bg-blue-700 rounded">Settings</a> -->
+        <form action="/logout" method="POST">
+            <button type="submit" class="w-full py-2 text-left hover:bg-blue-700 rounded">Logout</button>
+        </form>
+    </nav>
+</aside>

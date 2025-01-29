@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Bank File</title>
+    <!-- Add Tailwind CSS CDN link -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .input-field {
+            border-color: #4A90E2;
+            background-color: #F2F8FF;
+        }
+        .input-field:focus {
+            border-color: #007BFF;
+            background-color: #E6F0FF;
+            outline: none;
+        }
+        </style>
+</head>
+<body class="bg-gradient-to-b from-blue-500 to-white flex flex-col items-center justify-center min-h-screen p-6">
+    <div class="container mx-auto p-4 bg-white shadow-md rounded-lg w-full max-w-4xl">
+        <h1 class="text-2xl font-bold mb-4">Edit Bank File</h1>
+        <form id="editForm" action="/admin/edit-file/<%= file.id %>" method="POST" class="space-y-4">
+            <div>
+                <label for="rek" class="block text-sm font-medium text-gray-700">No Rek:</label>
+                <input type="text" id="rek" name="rek" value="<%= file.rek %>" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm input-field">
+            </div>
+            <div>
+                <label for="borrower_name" class="block text-sm font-medium text-gray-700">Borrower's Name:</label>
+                <input type="text" id="borrower_name" name="borrower_name" value="<%= file.borrower_name %>" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm input-field">
+            </div>
+            <div>
+                <label for="room_number" class="block text-sm font-medium text-gray-700">Room Number:</label>
+                <input type="text" id="room_number" name="room_number" value="<%= file.room_number %>" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm input-field">
+            </div>
+            <div>
+                <label for="safe_number" class="block text-sm font-medium text-gray-700">Safe Number:</label>
+                <input type="text" id="safe_number" name="safe_number" value="<%= file.safe_number %>" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm input-field">
+            </div>
+            <div>
+                <label for="shelf_number" class="block text-sm font-medium text-gray-700">Shelf Number:</label>
+                <input type="text" id="shelf_number" name="shelf_number" value="<%= file.shelf_number %>" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm input-field">
+            </div>
+            <div>
+                <label for="file_sequence" class="block text-sm font-medium text-gray-700">File Sequence Number:</label>
+                <input type="number" id="file_sequence" name="file_sequence" value="<%= file.file_sequence %>" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm input-field">
+            </div>
+            <div>
+                <label for="date" class="block text-sm font-medium text-gray-700">Date:</label>
+                <input 
+                    type="date" 
+                    id="date" 
+                    name="date" 
+                    data-date="<%= file.date %>" 
+                    required 
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm input-field">
+            </div>
+            
+            <div>
+                <label for="loan_amount" class="block text-sm font-medium text-gray-700">Loan Amount:</label>
+                <input type="number" step="0.01" id="loan_amount" name="loan_amount" value="<%= file.loan_amount %>" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm input-field">
+            </div>
+            <div>
+                <label for="marketing" class="block text-sm font-medium text-gray-700">Marketing:</label>
+                <input type="text" id="marketing" name="marketing" value="<%= file.marketing %>" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm input-field">
+            </div>
+            <button type="submit" class="px-4 py-2 bg-blue-500 text-white font-bold rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Update</button>
+            <a href="/admin_file" class="px-4 py-2 bg-blue-500 text-white font-bold rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Back to Files</a>
+        </form>
+        <br>
+
+        <% if (typeof success !== 'undefined' && success) { %>
+            <div id="notification" class="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg">
+                <p>File updated successfully!</p>
+            </div>
+        <% } %>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Format and set date value in the input field
+            const dateInput = document.getElementById('date');
+            const rawDate = dateInput.dataset.date;
+    
+            if (rawDate) {
+                // Convert raw date (if it's not in ISO format) to YYYY-MM-DD
+                const parsedDate = new Date(rawDate);
+                const formattedDate = parsedDate.toISOString().slice(0, 10); // Format as YYYY-MM-DD
+                dateInput.value = formattedDate;
+            }
+    
+            // Hide notification after 3 seconds
+            const notification = document.getElementById('notification');
+            if (notification) {
+                setTimeout(function() {
+                    notification.classList.add('hidden');
+                }, 3000);
+            }
+        });
+    </script>
+    
+</body>
+</html>

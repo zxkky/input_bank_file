@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Bank File</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .input-field {
+            border-color: #4A90E2;
+            background-color: #F2F8FF;
+        }
+        .input-field:focus {
+            border-color: #007BFF;
+            background-color: #E6F0FF;
+            outline: none;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-blue-500 to-white flex flex-col items-center justify-center min-h-screen p-6">
+   <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <h2 class="text-lg font-bold mb-4">Upload New File</h2>
+    <form action="/upload" method="POST" class="space-y-4">
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <label for="room_number" class="block text-sm font-medium text-gray-700">Room Number</label>
+                <input type="text" name="room_number" id="room_number" required 
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            </div>
+            <div>
+                <label for="safe_number" class="block text-sm font-medium text-gray-700">Safe Number</label>
+                <input type="text" name="safe_number" id="safe_number" required 
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            </div>
+            <div>
+                <label for="shelf_number" class="block text-sm font-medium text-gray-700">Shelf Number</label>
+                <input type="text" name="shelf_number" id="shelf_number" required 
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            </div>
+            <div>
+                <label for="file_sequence" class="block text-sm font-medium text-gray-700">File Sequence</label>
+                <input type="text" name="file_sequence" id="file_sequence" required 
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            </div>
+            <div>
+                <label for="date" class="block text-sm font-medium text-gray-700">Date</label>
+                <input type="date" name="date" id="date" required 
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            </div>
+            <div>
+                <label for="loan_amount" class="block text-sm font-medium text-gray-700">Loan Amount</label>
+                <input type="number" name="loan_amount" id="loan_amount" required 
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="w-full">
+                    <label for="rek" class="block text-sm font-medium text-gray-700">No Rek</label>
+                    <input type="text" name="rek" id="rek" required 
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                </div>
+                <div>
+                    <button type="button" id="check-borrow-btn" 
+                        class="w-full py-2 px-4 bg-green-500 text-white font-bold rounded-md shadow-sm hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                        Check
+                    </button>
+                </div>
+            </div>
+            <div>
+                <label for="marketing" class="block text-sm font-medium text-gray-700">Marketing</label>
+                <input type="text" name="marketing" id="marketing" required 
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            </div>
+            <div>
+                <label for="borrower_name" class="block text-sm font-medium text-gray-700">Borrower's Name</label>
+                <input type="text" name="borrower_name" id="borrower_name" readonly 
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            </div>
+        </div>
+        <button type="submit" 
+            class="w-full py-2 px-4 bg-blue-500 text-white font-bold rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            Upload File
+        </button>
+    </form>
+    
+    <br>
+    <a href="/file" class="text-blue-500 hover:text-blue-700">View All Bank Files</a>
+    
+        <% if (typeof success !== 'undefined' && success) { %>
+            <div id="notification" class="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg">
+                <p>File uploaded successfully!</p>
+            </div>
+            <% } %>
+        </div>
+    </div>
+        
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const notification = document.getElementById('notification');
+            if (notification) {
+                setTimeout(function() {
+                    notification.classList.add('hidden');
+                }, 3000); // Hide after 3 seconds
+            }
+        });
+    
+        document.getElementById('check-borrow-btn').addEventListener('click', async function() {
+            const rekValue = document.getElementById('rek').value;
+            const nameInput = document.getElementById('borrower_name');
+
+            if (rekValue) {
+                try {
+                    const response = await fetch(`/check-borrow?rek=${rekValue}`);
+                    const result = await response.json();
+                    console.log('Result:', result);  // Debugging: log result
+
+                    if (result.success) {
+                        nameInput.value = result.name; // Mengisi name dari hasil response
+                    } else {
+                        nameInput.value = ''; // Mengosongkan jika tidak ditemukan
+                        alert(result.message); // Menampilkan pesan jika tidak ditemukan
+                    }
+                } catch (error) {
+                    console.error('Error fetching borrower data:', error);
+                }
+            } else {
+                alert("Please enter a valid Rek number");
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Edit Borrower</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gradient-to-b from-blue-500 to-white flex flex-col items-center justify-center min-h-screen ">
+    <div class="flex justify-center items-center min-h-screen">
+        <div class="bg-white p-6 rounded shadow-md w-96">
+            <h1 class="text-2xl font-bold mb-4 text-center">Edit Borrower</h1>
+            <form action="/edit-borrower/<%= borrower.id %>" method="POST">
+                <div class="mb-4">
+                    <label class="block text-gray-700" for="rek">Rekening</label>
+                    <input type="text" id="rek" name="rek" value="<%= borrower.rek %>" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700" for="borrower_name">Name</label>
+                    <input type="text" id="borrower_name" name="borrower_name" value="<%= borrower.name %>" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                </div>
+                <div class="flex justify-between text-center items-center mb-4">
+                    <button type="submit" class="w-full py-2 px-4 bg-blue-500 text-white font-bold rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Update</button>
+                </div>
+                <div class="flex justify-between text-center items-center mb-4">
+                    <a href="/borrow" class="w-full py-2 px-4 bg-blue-500 text-white font-bold rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Back to Home</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

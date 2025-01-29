@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User - Bank File Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-6">
+        <h1 class="text-3xl font-bold mb-6 text-center">Edit User</h1>
+        <div class="bg-white shadow-md rounded p-6">
+            <form action="/admin/edit/<%= user.id %>" method="POST" enctype="multipart/form-data">
+                <div>
+                    <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                    <input type="text" name="username" id="username" value="<%= user.username %>" required class="block w-full px-4 py-2 border rounded-md">
+                </div>
+                <div>
+                    <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
+                    <select name="role" id="role" required class="block w-full px-4 py-2 border rounded-md">
+                        <option value="Super Admin" <%= user.role_id === 'Super Admin' ? 'selected' : '' %>>Super Admin</option>
+                        <option value="Admin" <%= user.role_id === 'Admin' ? 'selected' : '' %>>Admin</option>
+                        <option value="User" <%= user.role_id === 'User' ? 'selected' : '' %>>User</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <input type="password" name="password" id="password" class="block w-full px-4 py-2 border rounded-md">
+                </div>
+                <div>
+                    <label for="photo" class="block text-sm font-medium text-gray-700">Profile Photo</label>
+                    <input type="file" name="photo" id="photo" accept="image/*" class="block w-full px-4 py-2 border rounded-md">
+                </div>
+                <button type="submit" class="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Update User</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Script untuk menampilkan notifikasi edit sukses -->
+    <script>
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            console.log('URL Params:', urlParams.toString()); // Ini untuk memeriksa apakah parameter terbaca
+            if (urlParams.has('edit')) {
+                console.log('Edit parameter found'); // Log untuk cek apakah 'edit=true' terbaca
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: 'User has been successfully updated!',
+                    confirmButtonText: 'OK'
+                });
+            }
+        };
+    </script>
+    
+</body>
+</html>

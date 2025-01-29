@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Files</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-b from-blue-500 to-white min-h-screen p-6">
+    <div class="container mx-auto p-4">
+        <header class="mb-6">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold">Bank Files</h1>
+                <a href="/home" class="px-4 py-2 bg-blue-500 text-white font-bold rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Back to Home</a>
+            </div>
+        </header>
+        <form action="/file" method="GET" class="mb-6 flex space-x-4">
+            <input type="text" name="search" placeholder="Search by Borrower's Name or" 
+                class="block w-full border border-gray-300 rounded-md shadow-sm px-4 py-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm placeholder-gray-400">
+            
+            <button type="submit" 
+                class="px-4 py-2 bg-blue-500 text-white font-bold rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                Search
+            </button>
+            <button type="button" onclick="window.location.href='/file'" 
+                class="px-4 py-2 bg-gray-500 text-white font-bold rounded-md shadow-sm hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">Refresh</button>
+        </form>
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">File Number</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No Rek</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Loan Amount</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Borrower's Name</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Marketing</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created At</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <% files.forEach(file => { %>
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            <%= file.room_number %> -  <%= file.safe_number %> - <%= file.shelf_number %> - <%= file.file_sequence %>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= file.rek %></td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= file.date %></td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= file.loan_amount %></td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= file.borrower_name %></td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= file.marketing %></td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= file.created_at %></td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

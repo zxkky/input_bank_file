@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Borrower</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-b from-blue-500 to-white flex flex-col items-center justify-center min-h-screen p-6">
+    
+    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-md">
+        <h2 class="text-lg font-bold mb-4">Add New Borrower</h2>
+        <form action="/admin-borrow" method="POST" class="space-y-4">
+            <div>
+                <label for="rek" class="block text-sm font-medium text-gray-700">No Rek</label>
+                <input type="text" name="rek" id="rek" required 
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            </div>
+            <div>
+                <label for="borrower_name" class="block text-sm font-medium text-gray-700">Borrower's Name</label>
+                <input type="text" name="borrower_name" id="borrower_name" required 
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+            </div>
+            <button type="submit" 
+                class="w-full py-2 px-4 bg-blue-500 text-white font-bold rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                Add Borrower
+            </button>
+            <div class="flex justify-between text-center items-center mb-4">
+                <a href="/borrow" class="w-full py-2 px-4 bg-blue-500 text-white font-bold rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Back to Home</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
